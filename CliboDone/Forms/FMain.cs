@@ -49,7 +49,7 @@ namespace CliboDone.Forms
         /// <summary>
         /// マニュアルのファイルパス
         /// </summary>
-        private static readonly string MANUAL_FILE_PATH = @"Manual.html";
+        private static readonly string MANUAL_FILE_PATH = @"Manual\Manual.html";
 
         /// <summary>
         /// コンストラクタ。
