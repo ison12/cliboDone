@@ -122,6 +122,30 @@
     <Content Include="ConvertScripts\01.Simple\ToUpper_Script.vbs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ConvertScripts\02.Program\ToKebabUpper_Script.vbs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConvertScripts\02.Program\ToKebab_Script.vbs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConvertScripts\02.Program\ToCamelUpper_Script.vbs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConvertScripts\02.Program\ToCamel_Script.vbs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConvertScripts\02.Program\ToSnakeUpper_Script.vbs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConvertScripts\02.Program\ToSnake_Script.vbs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConvertScripts\02.Program\Util.vbs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConvertScripts\02.Program\UtilTest.vbs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ConvertScripts\Example_Script.vbs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -131,7 +155,10 @@
     <Content Include="ConvertScripts\README.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Manual\css\normalize.css">
+    <Content Include="Manual\css\main.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Manual\lib\normalize.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Manual\img\Manual_App1.png">
@@ -167,6 +194,10 @@
     <Content Include="Manual\img\Manual_RunImage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Manual\lib\tocbot\styles.css" />
+    <Content Include="Manual\lib\tocbot\tocbot.css" />
+    <Content Include="Manual\lib\tocbot\tocbot.js" />
+    <Content Include="Manual\lib\tocbot\tocbot.min.js" />
     <Content Include="Manual\Manual.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

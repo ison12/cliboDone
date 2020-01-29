@@ -5,302 +5,252 @@
     <meta charset="utf-8" />
     <title>CliboDoneマニュアル</title>
 
-    <link rel="stylesheet" href="css/normalize.css">
-    <style type="text/css">
-
-        html {
-            font-family: Quicksand, 游ゴシック体, "Yu Gothic", YuGothic, "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-            line-height: 1.15; /* 1 */
-            -webkit-text-size-adjust: 100%; /* 2 */
-        }
-
-        main {
-            margin: 2rem;
-        }
-
-        p {
-            font-size: 12pt;
-        }
-
-        pre {
-            font-size: 10pt;
-            padding: 8px;
-            border: 1px solid silver;
-            border-radius: 10px;
-        }
-
-        h1 {
-            padding: 0 0 0 20px;
-            border-left: solid 7px #01bd5a;
-            font-size: 30px;
-            line-height: 1.4;
-        }
-
-        h2 {
-            margin: 45px 0 0;
-            padding: 0 0 4px;
-            font-size: 30px;
-            border-bottom: 4px solid #d2e3de;
-            line-height: 1.4;
-        }
-
-        h3 {
-            margin: 35px 0 0;
-            padding: 0 0 6px;
-            border-bottom: solid 1px #ccc;
-            font-size: 26px;
-        }
-
-            h3::before {
-                margin: 0 6px 0 0;
-                content: "\f0dd";
-                color: #26990A;
-                font-family: FontAwesome;
-                position: relative;
-                top: -4px;
-            }
-
-        .module-files {
-            border-collapse: collapse;
-        }
-
-            .module-files .file-path {
-                width: 300px;
-            }
-
-            .module-files .description {
-                width: 500px;
-            }
-
-            .module-files th,
-            .module-files td {
-                border: 1px solid silver;
-                padding: 8px;
-                padding-top: 5px;
-                padding-bottom: 5px;
-            }
-
-            .module-files .level1 {
-                padding-left: 10px;
-            }
-
-            .module-files .level2 {
-                padding-left: 20px;
-            }
-
-            .module-files .level3 {
-                padding-left: 30px;
-            }
-
-            .module-files .level4 {
-                padding-left: 40px;
-            }
-    </style>
+    <link rel="stylesheet" href="lib/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="lib/tocbot/tocbot.css">
+    <link rel="stylesheet" href="lib/tocbot/styles.css">
+    <script src="lib/tocbot/tocbot.min.js"></script>
 
 </head>
 <body>
     <main>
-        <h1>CliboDoneのマニュアル</h1>
-        <p>
-            CliboDoneは、クリップボードの内容を監視して都度内容を自動変換するソフトウェアです。<br />
-            『<strong>Cli</strong>p<strong>bo</strong>ardを何かしら変換する(<strong>Done</strong>)する』という意味合いで、CliboDoneという名前にしました。
-        </p>
+        <div class="js-toc"
+             style="float:left; position: fixed">
+            &nbsp;
+        </div>
+        <div class="js-toc-content"
+             style="float:left; width: 70%; margin-left: 340px;">
+            <h1 id="manualTitle">CliboDoneのマニュアル</h1>
+            <p>
+                CliboDoneは、クリップボードの内容を監視して都度内容を自動変換するソフトウェアです。<br />
+                『<strong>Cli</strong>p<strong>bo</strong>ardを何かしら変換する(<strong>Done</strong>)する』という意味合いで、CliboDoneという名前にしました。
+            </p>
 
-        <h2>CliboDoneの仕組み</h2>
-        <p>
-            本ソフトウェアではクリップボードの内容を監視します。<br />
-            クリップボードの内容が更新されると、事前に設定されているスクリプトファイルが実行されて<br />
-            スクリプトの変換プログラムに従い文字列が加工されます。
-        </p>
-        <p>
-            <strong>実行イメージ</strong>
-        </p>
-        <p>
-            <img src="img/Manual_RunImage.png" />
-        </p>
+            <h2 id="clipDoneArchitect">CliboDoneの仕組み</h2>
+            <p>
+                本ソフトウェアではクリップボードの内容を監視します。<br />
+                クリップボードの内容が更新されると、事前に設定されているスクリプトファイルが実行されて<br />
+                スクリプトの変換プログラムに従い文字列が加工されます。
+            </p>
+            <p>
+                <strong>実行イメージ</strong>
+            </p>
+            <p>
+                <img src="img/Manual_RunImage.png" />
+            </p>
 
-        <h2>インストール方法</h2>
-        <p>
-            CliboDone.zipを展開すると、以下のようなファイルが作成されます。<br />
-            どこか適当なフォルダにファイルを保存すればインストール完了です。
-        </p>
-        <p>
-            <table class="module-files">
-                <thead>
-                    <tr>
-                        <th class="file-path">ファイルパス<br />（主要なファイルのみ記載）</th>
-                        <th class="description">説明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="level1">CliboDone</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="level2">+ CliboDone.exe</td>
-                        <td>実行ファイルの本体</td>
-                    </tr>
-                    <tr>
-                        <td class="level2">+ Manual</td>
-                        <td>マニュアルフォルダ</td>
-                    </tr>
-                    <tr>
-                        <td class="level3">  + Manual.html</td>
-                        <td>マニュアルHTML</td>
-                    </tr>
-                    <tr>
-                        <td class="level2">+ ConvertScripts</td>
-                        <td>変換用スクリプトファイルを管理するフォルダ</td>
-                    </tr>
-                    <tr>
-                        <td class="level3">  + 01.Simple</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="level4">  + ToLower_Script.vbs</td>
-                        <td>小文字変換スクリプトファイル</td>
-                    </tr>
-                    <tr>
-                        <td class="level4">  + ToUpper_Script.vbs</td>
-                        <td>大文字変換スクリプトファイル</td>
-                    </tr>
-                    <tr>
-                        <td class="level3">  + (Template)Script.vbs</td>
-                        <td>テンプレート用スクリプトファイル</td>
-                    </tr>
-                    <tr>
-                        <td class="level3">  + (Template)Template.txt</td>
-                        <td>テンプレート用テンプレートファイル</td>
-                    </tr>
-                    <tr>
-                        <td class="level3">  + Example_Script.vbs</td>
-                        <td>サンプル用スクリプトファイル</td>
-                    </tr>
-                    <tr>
-                        <td class="level3">  + Example_Template.txt</td>
-                        <td>サンプル用テンプレートファイル</td>
-                    </tr>
-                </tbody>
-            </table>
+            <h2 id="howToInstall">インストール方法</h2>
+            <p>
+                CliboDone.zipを展開すると、以下のようなファイルが作成されます。<br />
+                どこか適当なフォルダにファイルを保存すればインストール完了です。
+            </p>
+            <p>
+                <table class="module-files">
+                    <thead>
+                        <tr>
+                            <th class="file-path">ファイルパス<br />（主要なファイルのみ記載）</th>
+                            <th class="description">説明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="level1">CliboDone</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="level2">+ CliboDone.exe</td>
+                            <td>実行ファイルの本体</td>
+                        </tr>
+                        <tr>
+                            <td class="level2">+ Manual</td>
+                            <td>マニュアルフォルダ</td>
+                        </tr>
+                        <tr>
+                            <td class="level3">  + Manual.html</td>
+                            <td>マニュアルHTML</td>
+                        </tr>
+                        <tr>
+                            <td class="level2">+ ConvertScripts</td>
+                            <td>変換用スクリプトファイルを管理するフォルダ</td>
+                        </tr>
+                        <tr>
+                            <td class="level3">  + 01.Simple</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="level4">  + ToLower_Script.vbs</td>
+                            <td>小文字変換スクリプトファイル</td>
+                        </tr>
+                        <tr>
+                            <td class="level4">  + ToUpper_Script.vbs</td>
+                            <td>大文字変換スクリプトファイル</td>
+                        </tr>
+                        <tr>
+                            <td class="level3">  + 02.Program</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="level4">  + ToCamel_Script.vbs</td>
+                            <td>キャメルケース変換スクリプトファイル</td>
+                        </tr>
+                        <tr>
+                            <td class="level4">  + ToCamelUpper_Script.vbs</td>
+                            <td>キャメルケース変換（先頭大文字）スクリプトファイル</td>
+                        </tr>
+                        <tr>
+                            <td class="level4">  + ToKebab_Script.vbs</td>
+                            <td>ケバブケース変換スクリプトファイル</td>
+                        </tr>
+                        <tr>
+                            <td class="level4">  + ToKebabUpper_Script.vbs</td>
+                            <td>ケバブケース変換（全て大文字）スクリプトファイル</td>
+                        </tr>
+                        <tr>
+                            <td class="level4">  + ToSnake_Script.vbs</td>
+                            <td>スネークケース変換スクリプトファイル</td>
+                        </tr>
+                        <tr>
+                            <td class="level4">  + ToSnakeUpper_Script.vbs</td>
+                            <td>スネークケース変換（全て大文字）スクリプトファイル</td>
+                        </tr>
+                        <tr>
+                            <td class="level3">  + (Template)Script.vbs</td>
+                            <td>テンプレート用スクリプトファイル</td>
+                        </tr>
+                        <tr>
+                            <td class="level3">  + (Template)Template.txt</td>
+                            <td>テンプレート用テンプレートファイル</td>
+                        </tr>
+                        <tr>
+                            <td class="level3">  + Example_Script.vbs</td>
+                            <td>サンプル用スクリプトファイル</td>
+                        </tr>
+                        <tr>
+                            <td class="level3">  + Example_Template.txt</td>
+                            <td>サンプル用テンプレートファイル</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-        </p>
+            </p>
 
-        <h2>操作方法</h2>
-        <h3>アプリの実行</h3>
-        <p>
-            フォルダを開いて、CliboDone.exeを実行してください。
-        </p>
-        <p>
-            <img src="img/Manual_AppFolder.png" />
-        </p>
+            <h2 id="manupilation">操作方法</h2>
+            <h3 id="manupilationAppExec">アプリの実行</h3>
+            <p>
+                フォルダを開いて、CliboDone.exeを実行してください。
+            </p>
+            <p>
+                <img src="img/Manual_AppFolder.png" />
+            </p>
 
-        <h3>アプリの表示</h3>
-        <p>
-            実行すると、ウィンドウが開かれます。
-        </p>
-        <p>
-            <img src="img/Manual_App1.png" />
-        </p>
+            <h3 id="manupilationAppLaunch">アプリの表示</h3>
+            <p>
+                実行すると、ウィンドウが開かれます。
+            </p>
+            <p>
+                <img src="img/Manual_App1.png" />
+            </p>
 
-        <p>
-            ファイルメニューは以下のようになっています。
-        </p>
-        <p>
-            <img src="img/Manual_AppFileMenu.png" />
-        </p>
+            <p>
+                ファイルメニューは以下のようになっています。
+            </p>
+            <p>
+                <img src="img/Manual_AppFileMenu.png" />
+            </p>
 
-        <p>
-            またタスクトレイにアイコンが表示されます（一番左端のアイコン）。<br />
-            アイコンを右クリックすることで、メニューが表示されます。
-        </p>
-        <p>
-            <img src="img/Manual_AppTasktray.png" /><br />
-            <img src="img/Manual_AppTasktrayContext.png" />
-        </p>
+            <p>
+                またタスクトレイにアイコンが表示されます（一番左端のアイコン）。<br />
+                アイコンを右クリックすることで、メニューが表示されます。
+            </p>
+            <p>
+                <img src="img/Manual_AppTasktray.png" /><br />
+                <img src="img/Manual_AppTasktrayContext.png" />
+            </p>
 
-        <h3>変換のアクティブ化</h3>
-        <p>
-            ウィンドウで左端のイメージアイコンを押すことで、変換処理をアクティブな状態にできます。<br />
-            左が非アクティブな状態（アイコンが灰色）。<span style="color: red">右がアクティブな状態（アイコンが青色）</span>。
-        </p>
-        <p>
-            <img src="img/Manual_App1.png" />
-            <img src="img/Manual_App2.png" />
-        </p>
-        <p>
-            <span style="color: red">アクティブな状態でなければ、変換処理が働かないので注意してください。</span>
-        </p>
+            <h3 id="manupilationConvertActive">変換のアクティブ化</h3>
+            <p>
+                ウィンドウで左端のイメージアイコンを押すことで、変換処理をアクティブな状態にできます。<br />
+                左が非アクティブな状態（アイコンが灰色）。<span style="color: red">右がアクティブな状態（アイコンが青色）</span>。
+            </p>
+            <p>
+                <img src="img/Manual_App1.png" />
+                <img src="img/Manual_App2.png" />
+            </p>
+            <p>
+                <span style="color: red">アクティブな状態でなければ、変換処理が働かないので注意してください。</span>
+            </p>
 
-        <h3>変換スクリプトの指定と実行</h3>
-        <p>
-            変換スクリプトを指定するには、メニューの変換を押して、何か適当な項目を選択します。ここでは、01.Simple\ToLowerを選択しました。
-        </p>
-        <p>
-            <img src="img/Manual_App3.png" />
-        </p>
+            <h3 id="manupilationConvertScriptSelectedRun">変換スクリプトの指定と実行</h3>
+            <p>
+                変換スクリプトを指定するには、メニューの変換を押して、何か適当な項目を選択します。ここでは、01.Simple\ToLowerを選択しました。
+            </p>
+            <p>
+                <img src="img/Manual_App3.png" />
+            </p>
 
-        <p>
-            この状態でテキストエディタなどを開いてコピーを実行すると、ウィンドウの下部のテキストに変換した旨のメッセージが表示されます。<br />
-            ToLowerはクリップボード中のアルファベットを全て小文字にするので、この状態で貼り付けを実行すると内容が変換されていることがわかります。
-        </p>
-        <p>
-            <img src="img/Manual_App4.png" />
-        </p>
-        <p>
-            例として、"HELLO WORLD"をコピー後、貼り付けを実行すると、"hello world"に変換されていることがわかります。
-        </p>
+            <p>
+                この状態でテキストエディタなどを開いてコピーを実行すると、ウィンドウの下部のテキストに変換した旨のメッセージが表示されます。<br />
+                ToLowerはクリップボード中のアルファベットを全て小文字にするので、この状態で貼り付けを実行すると内容が変換されていることがわかります。
+            </p>
+            <p>
+                <img src="img/Manual_App4.png" />
+            </p>
+            <p>
+                例として、"HELLO WORLD"をコピー後、貼り付けを実行すると、"hello world"に変換されていることがわかります。
+            </p>
 
-        <h2>変換スクリプトのカスタマイズ</h2>
-        <h3>新しいファイルの作成</h3>
-        <p>
-            変換スクリプトを新しく作成するには、メニューのファイルを押して、『変換スクリプトファイルを作成する』を押します。<br />
-            すると、新たにファイルが作成されますので、続けて『変換スクリプトフォルダをエクスプローラで開く』を押してエクスプローラを開き該当ファイルをエディタで編集してください。<br />
-        </p>
-        <p>
-            <img src="img/Manual_AppFileMenu.png" /> →
-            <img src="img/Manual_NewFile.png" />
-        </p>
-        <p>
-            <span style="color: red">また、ファイルの階層は2階層目まで有効です。新たにフォルダを作成して、その中にファイルを移動することも可能です。</span>
-        </p>
+            <h2 id="convertScriptCustomize">変換スクリプトのカスタマイズ</h2>
+            <h3 id="convertScriptCustomizeNew">新しいファイルの作成</h3>
+            <p>
+                変換スクリプトを新しく作成するには、メニューのファイルを押して、『変換スクリプトファイルを作成する』を押します。<br />
+                すると、新たにファイルが作成されますので、続けて『変換スクリプトフォルダをエクスプローラで開く』を押してエクスプローラを開き該当ファイルをエディタで編集してください。<br />
+            </p>
+            <p>
+                <img src="img/Manual_AppFileMenu.png" /> →
+                <img src="img/Manual_NewFile.png" />
+            </p>
+            <p>
+                <span style="color: red">また、ファイルの階層は2階層目まで有効です。新たにフォルダを作成して、その中にファイルを移動することも可能です。</span>
+            </p>
 
-        <h3>ファイルの仕様について</h3>
-        <p>
-            変換スクリプトは以下の2ファイルで1セットです。但し、その内の [ファイル名]_Template.txt は無くても構いません。<br />
-            "[ファイル名]"の部分は自由に名前が変更できます。但し、"[ファイル名]"より右側の部分（アンダーバーや固定的な文字・拡張子など）は元の名前から変更しないでください。<br />
-            変更されるとアプリから正しく読み取りができなくなります。<br />
-            <ol>
-                <li> [ファイル名]_Script.vbs</li>
-                <li> [ファイル名]_Template.txt</li>
-            </ol>
+            <h3 id="convertScriptCustomizeFileSpec">ファイルの仕様について</h3>
+            <p>
+                変換スクリプトは以下の2ファイルで1セットです。但し、その内の [ファイル名]_Template.txt は無くても構いません。<br />
+                "[ファイル名]"の部分は自由に名前が変更できます。但し、"[ファイル名]"より右側の部分（アンダーバーや固定的な文字・拡張子など）は元の名前から変更しないでください。<br />
+                変更されるとアプリから正しく読み取りができなくなります。<br />
+                <ol>
+                    <li> [ファイル名]_Script.vbs</li>
+                    <li> [ファイル名]_Template.txt</li>
+                </ol>
 
-            また、<span style="color: red">両ファイルとも文字コードは UTF-16</span>なので、エディタで編集する際は、他の文字コードに変更しないように気をつけてください。<br />
-        </p>
+                また、<span style="color: red">両ファイルとも文字コードは UTF-16</span>なので、エディタで編集する際は、他の文字コードに変更しないように気をつけてください。<br />
+            </p>
 
-        <h3>ファイルの説明</h3>
-        <p>
-            Example_Script.vbsとExample_Template.txtを例にファイルの内容を説明します。<br />
-            <br />
-            Script.vbsは、決められた関数名と引数・戻り値で構成されています。<br />
-            <br />
-            関数名は『Main』で、引数は『templateContents』・『clipboardContents』です。<br />
-            戻り値は、変換結果の内容を返却します。<br />
-            <br />
-            『templateContents』には、Example_Template.txt から読み込まれた内容が受け渡されます。<br />
-            『clipboardContents』には、クリップボードの内容が受け渡されます。<br />
-        </p>
+            <h3 id="convertScriptCustomizeFileDetail">ファイルの説明</h3>
+            <p>
+                Example_Script.vbsとExample_Template.txtを例にファイルの内容を説明します。<br />
+                <br />
+                Script.vbsは、決められた関数名と引数・戻り値で構成されています。<br />
+                <br />
+                関数名は『Main』で、引数は『scriptDirPath』・『clipboardContents』・『templateContents』です。<br />
+                戻り値は、変換結果の内容を返却します。<br />
+                <br />
+                『scriptDirPath』には、スクリプトファイルのディレクトリパスが受け渡されます。<br />
+                『templateContents』には、Example_Template.txt から読み込まれた内容が受け渡されます。<br />
+                『clipboardContents』には、クリップボードの内容が受け渡されます。<br />
+            </p>
 <pre><strong>Example_Script.vbsの内容</strong><code>
 Option Explicit
 
 ' ==============================================================================
 ' Main entry point.
 '
-' Args   : template          ... The contents of the Template.txt file.
+' Args   : scriptDirPath     ... Own script directory path.
 '        : clipboardContents ... Clipboard contents.
+'        : templateContents  ... The contents of the Template.txt file.
 ' Return : Result of conversion.
 ' ==============================================================================
-Function Main(templateContents, clipboardContents)
+Function Main(scriptDirPath, clipboardContents, templateContents)
 
     ' Return variable
     Dim ret
@@ -317,23 +267,101 @@ Function Main(templateContents, clipboardContents)
 
 End Function</code></pre>
 
-        <p>
-            上記のVBSソースでは、引数の『templateContents』にExample_Template.txt（以下の内容）が引き渡されます。<br />
-            そちらの文字列内の "${clipboardContents}" をクリップボードの内容で置き換えることで、接頭辞と接尾辞を付与しているというサンプルソースになります。
-        </p>
+            <p>
+                上記のVBSソースでは、引数の『templateContents』にExample_Template.txt（以下の内容）が引き渡されます。<br />
+                そちらの文字列内の "${clipboardContents}" をクリップボードの内容で置き換えることで、接頭辞と接尾辞を付与しているというサンプルソースになります。
+            </p>
 
 <pre><strong>Example_Template.txtの内容</strong><code>
 -------------------------------------------------------------------------------- Prefix
 ${clipboardContents}
 -------------------------------------------------------------------------------- Suffix</code></pre>
 
-        <h2>著作権および免責事項</h2>
-        <p>
-            本ソフトウェアはフリーソフトです。自由にご使用ください。なお，著作権は作者である Ison が保有しています。<br />
-            <br />
-            本ソフトウェアを使用したことによって生じたすべての障害・損害・不具合等に関しましては<br />
-            私、私の関係者および私の所属するいかなる団体・組織とも、一切の責任を負いませんのでご了承頂き、各自の責任においてご使用ください。
-        </p>
+            <h2 id="copyrightOther">著作権および免責事項</h2>
+            <p>
+                本ソフトウェアはフリーソフトです。自由にご使用ください。なお，著作権は作者である Ison が保有しています。<br />
+                <br />
+                本ソフトウェアを使用したことによって生じたすべての障害・損害・不具合等に関しましては<br />
+                私、私の関係者および私の所属するいかなる団体・組織とも、一切の責任を負いませんのでご了承頂き、各自の責任においてご使用ください。
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+            </p>
+        </div>
     </main>
+
+    <script type="text/javascript">
+
+        tocbot.init({
+            // Where to render the table of contents.
+            tocSelector: '.js-toc',
+            // Where to grab the headings to build the table of contents.
+            contentSelector: '.js-toc-content',
+            // Which headings to grab inside of the contentSelector element.
+            headingSelector: 'h1, h2, h3',
+            // For headings inside relative or absolute positioned containers within content.
+            hasInnerContainers: true,
+            // How many heading levels should not be collapsed.
+            // For example, number 6 will show everything since
+            // there are only 6 heading levels and number 0 will collapse them all.
+            // The sections that are hidden will open
+            // and close as you scroll to headings within them.
+            collapseDepth: 6,
+            // orderedList can be set to false to generate unordered lists (ul)
+            // instead of ordered lists (ol)
+            orderedList: false
+        });
+
+    </script>
+
 </body>
 </html>

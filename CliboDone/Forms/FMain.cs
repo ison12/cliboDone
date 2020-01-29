@@ -99,7 +99,7 @@ namespace CliboDone.Forms
         /// <param name="e"></param>
         private void FMain_Activated(object sender, EventArgs e)
         {
-            RefreshConvertScriptList();
+            //RefreshConvertScriptList();
         }
 
         /// <summary>
@@ -597,13 +597,15 @@ namespace CliboDone.Forms
 
             ConvertScriptInfo scriptInfo = convertScriptItem.Tag as ConvertScriptInfo;
 
+            var scriptDirPath = Path.GetDirectoryName(scriptInfo.ScriptFilePath);
             var scriptContents = FileUtil.ReadFileContents(scriptInfo.ScriptFilePath, Encoding.GetEncoding("utf-16"));
             var templateContents = FileUtil.ReadFileContents(scriptInfo.TemplateFilePath, Encoding.GetEncoding("utf-16"));
 
             var scriptExecutor = new ScriptExecutor();
             var ret = scriptExecutor.Exec(scriptContents, "VBScript", "Main", new List<object>() {
+                scriptDirPath,
+                clipboardContents,
                 templateContents,
-                clipboardContents
             });
 
             return ret as string;
