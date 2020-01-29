@@ -194,10 +194,18 @@
     <Content Include="Manual\img\Manual_RunImage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Manual\lib\tocbot\styles.css" />
-    <Content Include="Manual\lib\tocbot\tocbot.css" />
-    <Content Include="Manual\lib\tocbot\tocbot.js" />
-    <Content Include="Manual\lib\tocbot\tocbot.min.js" />
+    <Content Include="Manual\lib\tocbot\styles.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Manual\lib\tocbot\tocbot.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Manual\lib\tocbot\tocbot.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Manual\lib\tocbot\tocbot.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Manual\Manual.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
