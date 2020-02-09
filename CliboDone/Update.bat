@@ -9,6 +9,10 @@ if "%~2" == "" (
 	exit /b 2
 )
 
+if "%~3" == "" (
+	exit /b 3
+)
+
 rem Variable declare
 set curPath=%~dp0
 
