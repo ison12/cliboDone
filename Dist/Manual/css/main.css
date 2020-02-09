@@ -1,0 +1,116 @@
+html, body {
+    font-family: Quicksand, 游ゴシック体, "Yu Gothic", YuGothic, "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    line-height: 1.15; /* 1 */
+    -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+* {
+    font-family: Quicksand, 游ゴシック体, "Yu Gothic", YuGothic, "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    line-height: 1.15; /* 1 */
+    -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+main {
+    margin: 2rem;
+}
+
+p {
+    font-size: 12pt;
+}
+
+pre {
+    font-size: 14pt;
+    padding: 8px;
+    border: 1px solid silver;
+    border-radius: 10px;
+}
+
+h1 {
+    margin: 10px 0;
+    padding: 0 0 0 20px;
+    border-left: solid 7px #01bd5a;
+    font-size: 30px;
+    line-height: 1.4;
+}
+
+h2 {
+    margin: 10px 0;
+    padding: 0 0 4px;
+    font-size: 30px;
+    border-bottom: 4px solid #d2e3de;
+    line-height: 1.4;
+}
+
+h3 {
+    margin: 10px 0;
+    padding: 0 0 6px;
+    border-bottom: solid 1px #ccc;
+    font-size: 26px;
+}
+
+    h3::before {
+        margin: 0 6px 0 0;
+        content: "\f0dd";
+        color: #26990A;
+        font-family: FontAwesome;
+        position: relative;
+        top: -4px;
+    }
+
+.module-files {
+    border-collapse: collapse;
+}
+
+    .module-files .file-path {
+        width: 300px;
+    }
+
+    .module-files .description {
+        width: 600px;
+    }
+
+    .module-files th,
+    .module-files td {
+        border: 1px solid silver;
+        padding: 8px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        font-size: 12pt;
+    }
+
+    .module-files .level1 {
+        padding-left: 10px;
+    }
+
+    .module-files .level2 {
+        padding-left: 20px;
+    }
+
+    .module-files .level3 {
+        padding-left: 30px;
+    }
+
+    .module-files .level4 {
+        padding-left: 40px;
+    }
+
+.toc-list-item {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 10px;
+    list-style: none !important;
+}
+
+a.toc-link {
+    display: inline-block;
+    height: 30px !important;
+    line-height: 30px !important;
+}
+
+    a.toc-link::before {
+        background-color: ghostwhite;
+    }
+
+    a.toc-link.is-active-link::before {
+        background-color: #54BC4B;
+    }
