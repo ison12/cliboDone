@@ -38,7 +38,7 @@ rd /s /q "%applicationDirPath%\Manual"
 move /y "%downloadApplicationDirPath%\Manual" "%applicationDirPath%\Manual"
 
 rem Backup convert scripts
-robocopy /s /e "%applicationDirPath%\ConvertScripts" "%applicationDirPath%\ConvertScripts_bk_%date%%time%"
+robocopy /s /e "%applicationDirPath%\ConvertScripts" "%applicationDirPath%\ConvertScripts_bk_%nowDate%%nowTime%"
 
 rem Copy convert scripts (Newer or Changed)
 robocopy /s /e /xo "%downloadApplicationDirPath%\ConvertScripts" "%applicationDirPath%\ConvertScripts"
