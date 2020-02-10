@@ -39,10 +39,11 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuItemHide = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuGroupConvert = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuGroupAutoConvert = new System.Windows.Forms.ToolStripMenuItem();
             this.menuGroupHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemManual = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemVersion = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemUpdateApp = new System.Windows.Forms.ToolStripMenuItem();
             this.txtTargetConvertScript = new System.Windows.Forms.TextBox();
             this.txtResultMessage = new System.Windows.Forms.TextBox();
             this.rdoConvEnabled = new System.Windows.Forms.RadioButton();
@@ -52,6 +53,7 @@
             this.contextMenuItemWindowHide = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuItemExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuGroupConvert = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBar.SuspendLayout();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
@@ -60,6 +62,7 @@
             // 
             this.menuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuGroupFile,
+            this.menuGroupAutoConvert,
             this.menuGroupConvert,
             this.menuGroupHelp});
             this.menuBar.Location = new System.Drawing.Point(0, 0);
@@ -128,17 +131,18 @@
             this.menuItemExit.Text = "アプリケーションを完全に終了する(&X)";
             this.menuItemExit.Click += new System.EventHandler(this.menuItemExit_Click);
             // 
-            // menuGroupConvert
+            // menuGroupAutoConvert
             // 
-            this.menuGroupConvert.Name = "menuGroupConvert";
-            this.menuGroupConvert.Size = new System.Drawing.Size(58, 20);
-            this.menuGroupConvert.Text = "変換(&C)";
+            this.menuGroupAutoConvert.Name = "menuGroupAutoConvert";
+            this.menuGroupAutoConvert.Size = new System.Drawing.Size(83, 20);
+            this.menuGroupAutoConvert.Text = "自動変換(&A)";
             // 
             // menuGroupHelp
             // 
             this.menuGroupHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuItemManual,
-            this.menuItemVersion});
+            this.menuItemVersion,
+            this.menuItemUpdateApp});
             this.menuGroupHelp.Name = "menuGroupHelp";
             this.menuGroupHelp.Size = new System.Drawing.Size(65, 20);
             this.menuGroupHelp.Text = "ヘルプ(&H)";
@@ -146,16 +150,23 @@
             // menuItemManual
             // 
             this.menuItemManual.Name = "menuItemManual";
-            this.menuItemManual.Size = new System.Drawing.Size(138, 22);
+            this.menuItemManual.Size = new System.Drawing.Size(262, 22);
             this.menuItemManual.Text = "マニュアル(&M)";
             this.menuItemManual.Click += new System.EventHandler(this.menuItemManual_Click);
             // 
             // menuItemVersion
             // 
             this.menuItemVersion.Name = "menuItemVersion";
-            this.menuItemVersion.Size = new System.Drawing.Size(138, 22);
+            this.menuItemVersion.Size = new System.Drawing.Size(262, 22);
             this.menuItemVersion.Text = "バージョン(&A)";
             this.menuItemVersion.Click += new System.EventHandler(this.menuItemVersion_Click);
+            // 
+            // menuItemUpdateApp
+            // 
+            this.menuItemUpdateApp.Name = "menuItemUpdateApp";
+            this.menuItemUpdateApp.Size = new System.Drawing.Size(262, 22);
+            this.menuItemUpdateApp.Text = "最新バージョンを確認してアップデートする";
+            this.menuItemUpdateApp.Click += new System.EventHandler(this.menuItemUpdateApp_Click);
             // 
             // txtTargetConvertScript
             // 
@@ -234,6 +245,12 @@
             this.contextMenuItemExit.Text = "アプリケーションを完全に終了する(&X)";
             this.contextMenuItemExit.Click += new System.EventHandler(this.contextMenuItemExit_Click);
             // 
+            // menuGroupConvert
+            // 
+            this.menuGroupConvert.Name = "menuGroupConvert";
+            this.menuGroupConvert.Size = new System.Drawing.Size(58, 20);
+            this.menuGroupConvert.Text = "変換(&C)";
+            // 
             // FMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -272,7 +289,7 @@
         private System.Windows.Forms.MenuStrip menuBar;
         private System.Windows.Forms.ToolStripMenuItem menuGroupFile;
         private System.Windows.Forms.ToolStripMenuItem menuItemExit;
-        private System.Windows.Forms.ToolStripMenuItem menuGroupConvert;
+        private System.Windows.Forms.ToolStripMenuItem menuGroupAutoConvert;
         private System.Windows.Forms.ToolStripMenuItem menuItemConvertScriptRefresh;
         private System.Windows.Forms.RadioButton rdoConvEnabled;
         private System.Windows.Forms.ToolStripMenuItem menuItemOpenConvertScriptDir;
@@ -291,5 +308,7 @@
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemExit;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemWindowHide;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem menuItemUpdateApp;
+        private System.Windows.Forms.ToolStripMenuItem menuGroupConvert;
     }
 }

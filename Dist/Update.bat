@@ -27,6 +27,9 @@ rem Copy module files
 copy /b /v /y "%downloadApplicationDirPath%\*.exe" "%applicationDirPath%"
 copy /b /v /y "%downloadApplicationDirPath%\*.exe.config" "%applicationDirPath%"
 
+rem Copy Update.bat file
+copy /b /v /y "%downloadApplicationDirPath%\Update.bat" "%applicationDirPath%"
+
 rem Copy dll files (If not exists dll then no check)
 copy /b /v /y "%downloadApplicationDirPath%\*.dll" "%applicationDirPath%"
 

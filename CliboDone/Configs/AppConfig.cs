@@ -49,6 +49,12 @@ namespace CliboDone.Configs
         /// </summary>
         public void Read()
         {
+            if (!File.Exists(filePath))
+            {
+                // ファイルが存在しない場合は読み込まない
+                return;
+            }
+
             var xmlDoc = new XmlDocument();
             xmlDoc.XmlResolver = null;
             xmlDoc.Load(filePath);
@@ -68,7 +74,20 @@ namespace CliboDone.Configs
         {
             var xmlDoc = new XmlDocument();
             xmlDoc.XmlResolver = null;
-            xmlDoc.Load(filePath);
+
+            if (!File.Exists(filePath))
+            {
+                // ファイルが存在しない場合は一旦書き込む
+                xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(
+@"<?xml version=""1.0"" encoding=""utf-8"" ?>
+<root>
+  <convertScriptMenuItemLastSelected></convertScriptMenuItemLastSelected>
+</root>");
+            } else
+            {
+                xmlDoc.Load(filePath);
+            }
 
             var rootNode = xmlDoc.DocumentElement;
 

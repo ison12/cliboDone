@@ -88,6 +88,7 @@
     <Compile Include="Scripts\ScriptExecutor.cs" />
     <Compile Include="Scripts\ConvertScriptListLoader.cs" />
     <Compile Include="Utils\FileUtil.cs" />
+    <Compile Include="Utils\ProcessExecuteUtil.cs" />
     <Compile Include="Utils\WinAPIErrorMessageUtil.cs" />
     <EmbeddedResource Include="Forms\FMain.resx">
       <DependentUpon>FMain.cs</DependentUpon>
@@ -99,6 +100,9 @@
     </EmbeddedResource>
     <None Include="CliboDone.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CliboDone.version">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Update.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

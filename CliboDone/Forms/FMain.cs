@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -84,9 +85,10 @@ namespace CliboDone.Forms
             appConfig = new AppConfig();
             appConfig.Read();
 
-            LoadConvertScriptList();
+            LoadConvertScriptList(menuGroupAutoConvert, menuItemAutoConvertScripts_Click);
+            LoadConvertScriptList(menuGroupConvert, menuItemConvertScripts_Click);
 
-            SelectConvertScriptMenuItem(menuGroupConvert, appConfig.ConvertScriptMenuItemLastSelected);
+            SelectConvertScriptMenuItem(menuGroupAutoConvert, appConfig.ConvertScriptMenuItemLastSelected);
 
             clipboardViewer = new Clipboard.ClipboardViewer(this.Handle);
             clipboardViewer.DrawClipBoardEventHandler += OnDrawClipboard;
@@ -131,7 +133,7 @@ namespace CliboDone.Forms
         private void FMain_FormClosed(object sender, FormClosedEventArgs e)
         {
 
-            var selectedItem = GetSelectedMenuItem(menuGroupConvert);
+            var selectedItem = GetSelectedMenuItem(menuGroupAutoConvert);
             if (selectedItem != null)
             {
                 var info = selectedItem.Tag as ConvertScriptInfo;
@@ -165,7 +167,7 @@ namespace CliboDone.Forms
         {
             if (!rdoConvEnabled.Checked)
             {
-                txtResultMessage.Text = string.Format("変換がオフになっています");
+                txtResultMessage.Text = string.Format("自動変換がオフになっています");
                 return;
             }
 
@@ -191,10 +193,22 @@ namespace CliboDone.Forms
 
                 try
                 {
-                    var convertedText = ExecConvert(System.Windows.Forms.Clipboard.GetText());
-                    System.Windows.Forms.Clipboard.SetText(convertedText, TextDataFormat.UnicodeText);
+                    var convertScriptItem = GetSelectedMenuItem(menuGroupAutoConvert);
+                    if (convertScriptItem == null)
+                    {
+                        // 変換スクリプトの指定なし
+                        txtResultMessage.Text = string.Format("自動変換メニューが未選択です。");
+                    }
+                    else
+                    {
 
-                    txtResultMessage.Text = string.Format("{0} ... 変換しました", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
+                        ConvertScriptInfo scriptInfo = convertScriptItem.Tag as ConvertScriptInfo;
+
+                        var convertedText = ExecConvert(System.Windows.Forms.Clipboard.GetText(), scriptInfo);
+                        System.Windows.Forms.Clipboard.SetText(convertedText, TextDataFormat.UnicodeText);
+
+                        txtResultMessage.Text = string.Format("{0} ... 自動変換しました", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -226,7 +240,8 @@ namespace CliboDone.Forms
         /// <param name="e">イベントオブジェクト</param>
         private void menuItemConvertScriptRefresh_Click(object sender, EventArgs e)
         {
-            RefreshConvertScriptList();
+            RefreshConvertScriptList(menuGroupAutoConvert, menuItemAutoConvertScripts_Click);
+            RefreshConvertScriptList(menuGroupConvert, menuItemConvertScripts_Click);
         }
 
         /// <summary>
@@ -265,7 +280,8 @@ namespace CliboDone.Forms
                 createdFile = true;
             }
 
-            LoadConvertScriptList();
+            LoadConvertScriptList(menuGroupAutoConvert, menuItemAutoConvertScripts_Click);
+            LoadConvertScriptList(menuGroupConvert, menuItemConvertScripts_Click);
 
             MessageBox.Show(string.Format("{0}_Template.txt" + "\n" + "{0}_Script.vbs という名前でファイルを作成しました。", fileNamePart), "ファイル作成", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -281,13 +297,13 @@ namespace CliboDone.Forms
         }
 
         /// <summary>
-        /// メニューの変換スクリプトクリック時のイベントプロシージャ。
+        /// メニューの自動変換スクリプトクリック時のイベントプロシージャ。
         /// </summary>
         /// <param name="sender">送信元オブジェクト</param>
         /// <param name="e">イベントオブジェクト</param>
-        private void menuItemConvertScripts_Click(object sender, EventArgs e)
+        private void menuItemAutoConvertScripts_Click(object sender, EventArgs e)
         {
-            foreach (ToolStripMenuItem item in menuGroupConvert.DropDownItems)
+            foreach (ToolStripMenuItem item in menuGroupAutoConvert.DropDownItems)
             {
                 /*
                  * 第二階層
@@ -325,6 +341,57 @@ namespace CliboDone.Forms
         }
 
         /// <summary>
+        /// メニューの変換スクリプトクリック時のイベントプロシージャ。
+        /// </summary>
+        /// <param name="sender">送信元オブジェクト</param>
+        /// <param name="e">イベントオブジェクト</param>
+        private void menuItemConvertScripts_Click(object sender, EventArgs e)
+        {
+            if (!System.Windows.Forms.Clipboard.ContainsText())
+            {
+                // クリップボードの内容がテキストではない場合
+                return;
+            }
+
+            if (isEditingClipboard)
+            {
+                // クリップボードの書き換え中のため処理を中断
+                // --------------------------------------------
+                // 本メソッド内で、Clipboard.SetTextを呼び出すため、本メソッドが再帰呼び出しされる。
+                // そのため、二重に同じ処理が行われないようにフラグの判定を実施し処理を中断する。
+                return;
+            }
+
+            try
+            {
+                // クリップボードの書き換え中のためフラグを変更
+                isEditingClipboard = true;
+
+                try
+                {
+                    var menuItem = sender as ToolStripMenuItem;
+                    ConvertScriptInfo scriptInfo = menuItem.Tag as ConvertScriptInfo;
+
+                    var convertedText = ExecConvert(System.Windows.Forms.Clipboard.GetText(), scriptInfo);
+                    System.Windows.Forms.Clipboard.SetText(convertedText, TextDataFormat.UnicodeText);
+
+                    SelectConvertScriptMenuItem(menuGroupAutoConvert, scriptInfo.Id);
+
+                    txtResultMessage.Text = string.Format("{0} ... 変換しました", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
+                }
+                catch (Exception ex)
+                {
+                    txtResultMessage.Text = string.Format("エラー発生 ... {0}", ex.Message);
+                }
+            }
+            finally
+            {
+                // クリップボードの書き換え終了のためフラグを変更
+                isEditingClipboard = false;
+            }
+        }
+
+        /// <summary>
         /// メニューのマニュアルクリック時のイベントプロシージャ。
         /// </summary>
         /// <param name="sender">送信元オブジェクト</param>
@@ -342,6 +409,29 @@ namespace CliboDone.Forms
         private void menuItemVersion_Click(object sender, EventArgs e)
         {
             ShowVersionInfo();
+        }
+
+        /// <summary>
+        /// メニューの最新バージョンアップデートクリック時のイベントプロシージャ。
+        /// </summary>
+        /// <param name="sender">送信元オブジェクト</param>
+        /// <param name="e">イベントオブジェクト</param>
+        private void menuItemUpdateApp_Click(object sender, EventArgs e)
+        {
+            var updateExe = Path.Combine(FileUtil.GetExecuteDirPath(), @"GitHubAutoUpdater\GitHubAutoUpdater.exe");
+
+            try
+            {
+                Process.Start(updateExe);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(this,
+                    "GitHubAutoUpdater.exe が実行できませんでした。",
+                    "最新バージョンアップデート画面の起動エラー",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         /// <summary>
@@ -429,14 +519,15 @@ namespace CliboDone.Forms
         /// <summary>
         /// 変換スクリプトをロードする。
         /// </summary>
-        private void LoadConvertScriptList()
+        /// <param name="menuGroup">メニューグループ</param>
+        private void LoadConvertScriptList(ToolStripMenuItem menuGroup, EventHandler onMenuClick)
         {
             string convertScriptsDir = Path.Combine(FileUtil.GetExecuteDirPath(), CONVERT_SCRIPTS_DIR_NAME);
 
             var loader = new ConvertScriptListLoader();
             var infos = loader.Load(convertScriptsDir /* ルートディレクトリ */, convertScriptsDir /* 検索ディレクトリ */);
 
-            menuGroupConvert.DropDownItems.Clear();
+            menuGroup.DropDownItems.Clear();
             txtTargetConvertScript.Text = string.Empty;
 
             Dictionary<string, ToolStripMenuItem> menuItemMap = new Dictionary<string, ToolStripMenuItem>();
@@ -461,7 +552,7 @@ namespace CliboDone.Forms
                         };
                         menuItemMap[idSplitted[0]] = menuItemDir;
 
-                        menuGroupConvert.DropDownItems.Add(menuItemDir);
+                        menuGroup.DropDownItems.Add(menuItemDir);
                     }
 
                     // ディレクトリ配下のファイルをメニュー項目として追加
@@ -471,7 +562,7 @@ namespace CliboDone.Forms
                         Tag = info,
                         CheckState = CheckState.Unchecked,
                     };
-                    menuItem.Click += menuItemConvertScripts_Click;
+                    menuItem.Click += onMenuClick;
 
                     menuItemDir.DropDownItems.Add(menuItem);
 
@@ -490,9 +581,9 @@ namespace CliboDone.Forms
                         Tag = info,
                         CheckState = CheckState.Unchecked,
                     };
-                    menuItem.Click += menuItemConvertScripts_Click;
+                    menuItem.Click += onMenuClick;
 
-                    menuGroupConvert.DropDownItems.Add(menuItem);
+                    menuGroup.DropDownItems.Add(menuItem);
                 }
             }
         }
@@ -500,10 +591,11 @@ namespace CliboDone.Forms
         /// <summary>
         /// 変換スクリプトリストを更新する。
         /// </summary>
-        private void RefreshConvertScriptList()
+        /// <param name="menuGroup">メニューグループ</param>
+        private void RefreshConvertScriptList(ToolStripMenuItem menuGroup, EventHandler onMenuClick)
         {
             // 現在選択されている情報を取得
-            var menuItem = GetSelectedMenuItem(menuGroupConvert);
+            var menuItem = GetSelectedMenuItem(menuGroup);
             ConvertScriptInfo itemInfo = null;
             if (menuItem != null)
             {
@@ -511,12 +603,12 @@ namespace CliboDone.Forms
             }
 
             // リストをロードしなおす
-            LoadConvertScriptList();
+            LoadConvertScriptList(menuGroup, onMenuClick);
 
             // 選択状態を復元する
             if (itemInfo != null)
             {
-                SelectConvertScriptMenuItem(menuGroupConvert, itemInfo.Id);
+                SelectConvertScriptMenuItem(menuGroupAutoConvert, itemInfo.Id);
             }
         }
 
@@ -525,15 +617,19 @@ namespace CliboDone.Forms
         /// </summary>
         /// <param name="menuGroup">メニューグループ</param>
         /// <param name="menuItemId">メニュー項目ID</param>
-        private void SelectConvertScriptMenuItem(ToolStripMenuItem menuGroup, string menuItemId)
+        /// <param name="depth">階層レベル</param>
+        private void SelectConvertScriptMenuItem(ToolStripMenuItem menuGroup, string menuItemId, int depth = 0)
         {
-            txtTargetConvertScript.Text = string.Empty;
+            if (depth == 0)
+            {
+                txtTargetConvertScript.Text = string.Empty;
+            }
 
             foreach (ToolStripMenuItem item in menuGroup.DropDownItems)
             {
                 if (item.DropDownItems.Count > 0)
                 {
-                    SelectConvertScriptMenuItem(item, menuItemId);
+                    SelectConvertScriptMenuItem(item, menuItemId, (depth + 1));
                 }
 
                 var info = item.Tag as ConvertScriptInfo;
@@ -585,18 +681,10 @@ namespace CliboDone.Forms
         /// 変換を実行する。
         /// </summary>
         /// <param name="clipboardContents">クリップボードコンテンツ</param>
+        /// <param name="scriptInfo">スクリプト情報</param>
         /// <returns>変換結果</returns>
-        private string ExecConvert(string clipboardContents)
+        private string ExecConvert(string clipboardContents, ConvertScriptInfo scriptInfo)
         {
-            var convertScriptItem = GetSelectedMenuItem(menuGroupConvert);
-            if (convertScriptItem == null)
-            {
-                // 変換スクリプトの指定なし
-                throw new Exception("変換メニューが未選択です。");
-            }
-
-            ConvertScriptInfo scriptInfo = convertScriptItem.Tag as ConvertScriptInfo;
-
             var scriptDirPath = Path.GetDirectoryName(scriptInfo.ScriptFilePath);
             var scriptContents = FileUtil.ReadFileContents(scriptInfo.ScriptFilePath, Encoding.GetEncoding("utf-16"));
             var templateContents = FileUtil.ReadFileContents(scriptInfo.TemplateFilePath, Encoding.GetEncoding("utf-16"));
