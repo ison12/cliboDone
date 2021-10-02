@@ -121,8 +121,10 @@ namespace CliboDone.Clipboard
         {
             if (!ChangeClipboardChain(this.hWndViewer, this.hWndViewerNext))
             {
-                // エラー発生時
-                ThrowWinAPIException(WinAPIErrorMessageUtil.GetErrorCode());
+                // https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-changeclipboardchain
+                // 戻り値は、WM_CHANGECBCHAINメッセージをクリップボードビューアチェーンのウィンドウに渡した結果を示します。
+                // チェーン内のウィンドウは通常、WM_CHANGECBCHAINを処理するときにFALSEを返すため、ChangeClipboardChainからの戻り値は通常FALSEです。
+                // チェーンにウィンドウが1つしかない場合、戻り値は通常TRUEです。
             }
         }
 
